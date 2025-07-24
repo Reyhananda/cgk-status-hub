@@ -133,7 +133,7 @@ const IssuesSummary: React.FC<IssuesSummaryProps> = ({ equipment, onEquipmentCli
           Next
         </button>
       </div>
-      <div className="mt-4 text-sm text-muted-foreground">
+      <div className="mt-4 text-sm text-muted-foreground text-center">
         Click on any row to view detailed equipment information and add comments.
       </div>
     </div>
