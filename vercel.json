@@ -1,0 +1,11 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "ALLOW-FROM https://app.smartsheet.com https://*.smartsheet.com" },
+        { "key": "Content-Security-Policy", "value": "frame-ancestors 'self' https://app.smartsheet.com https://*.smartsheet.com;" }
+      ]
+    }
+  ]
+}
