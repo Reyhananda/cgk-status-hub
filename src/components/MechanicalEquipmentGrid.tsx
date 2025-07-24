@@ -1,22 +1,22 @@
 /**
- * Equipment Grid Component
- * Main grid displaying all equipment organized by site and equipment type
+ * Mechanical Equipment Grid Component
+ * Grid displaying mechanical equipment (AHU, CHILLER, etc.)
  */
 
 import React from 'react';
-import { Equipment, EquipmentType, SiteCode } from '@/types/equipment';
-import { equipmentConfig } from '@/data/equipmentData';
+import { Equipment, MechanicalEquipmentType, SiteCode } from '@/types/equipment';
+import { mechanicalEquipmentConfig } from '@/data/equipmentData';
 import EquipmentCard from './EquipmentCard';
 import { cn } from '@/lib/utils';
 
-interface EquipmentGridProps {
+interface MechanicalEquipmentGridProps {
   equipment: Equipment[];
   onEquipmentClick: (equipment: Equipment) => void;
 }
 
-const EquipmentGrid: React.FC<EquipmentGridProps> = ({ equipment, onEquipmentClick }) => {
+const MechanicalEquipmentGrid: React.FC<MechanicalEquipmentGridProps> = ({ equipment, onEquipmentClick }) => {
   const sites: SiteCode[] = ['CGK60', 'CGK61', 'CGK62', 'CGK63', 'CGK64', 'CGK65'];
-  const equipmentTypes: EquipmentType[] = [
+  const equipmentTypes: MechanicalEquipmentType[] = [
     'AHU/DAHU',
     'CRAHU',
     'CHILLER',
@@ -25,13 +25,13 @@ const EquipmentGrid: React.FC<EquipmentGridProps> = ({ equipment, onEquipmentCli
     'COOLING TOWER'
   ];
 
-  const getEquipmentForSiteAndType = (site: SiteCode, type: EquipmentType): Equipment[] => {
+  const getEquipmentForSiteAndType = (site: SiteCode, type: MechanicalEquipmentType): Equipment[] => {
     return equipment.filter(eq => eq.site === site && eq.type === type);
   };
 
-  const renderEquipmentCell = (site: SiteCode, type: EquipmentType) => {
+  const renderEquipmentCell = (site: SiteCode, type: MechanicalEquipmentType) => {
     const siteEquipment = getEquipmentForSiteAndType(site, type);
-    const configNumbers = equipmentConfig[site][type];
+    const configNumbers = mechanicalEquipmentConfig[site][type];
 
     if (configNumbers.length === 0) {
       return (
@@ -110,4 +110,4 @@ const EquipmentGrid: React.FC<EquipmentGridProps> = ({ equipment, onEquipmentCli
   );
 };
 
-export default EquipmentGrid;
+export default MechanicalEquipmentGrid;

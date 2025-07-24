@@ -27,8 +27,6 @@ const EquipmentCard: React.FC<EquipmentCardProps> = ({ equipment, onClick }) => 
         return 'bg-equipment-standby hover:bg-equipment-standby/80';
       case 'Impaired':
         return 'bg-equipment-impaired hover:bg-equipment-impaired/80';
-      case 'Mismatch':
-        return 'bg-equipment-mismatch hover:bg-equipment-mismatch/80';
       case 'No Data':
         return 'bg-equipment-no-data hover:bg-equipment-no-data/80';
       default:
@@ -41,7 +39,6 @@ const EquipmentCard: React.FC<EquipmentCardProps> = ({ equipment, onClick }) => 
       case 'Run':
       case 'Standby':
       case 'Impaired':
-      case 'Mismatch':
         return 'text-white';
       case 'No Data':
         return 'text-gray-300';
@@ -79,7 +76,7 @@ const EquipmentCard: React.FC<EquipmentCardProps> = ({ equipment, onClick }) => 
                   equipment.status === 'Run' && 'text-green-400',
                   equipment.status === 'Standby' && 'text-yellow-400',
                   equipment.status === 'Impaired' && 'text-red-400',
-                  equipment.status === 'Mismatch' && 'text-orange-400',
+                  
                   equipment.status === 'No Data' && 'text-gray-400'
                 )}>
                   {equipment.status}

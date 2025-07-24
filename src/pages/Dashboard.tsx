@@ -6,7 +6,8 @@
 import React, { useState, useEffect } from 'react';
 import { Equipment, EquipmentComment } from '@/types/equipment';
 import { generateEquipmentData } from '@/data/equipmentData';
-import EquipmentGrid from '@/components/EquipmentGrid';
+import MechanicalEquipmentGrid from '@/components/MechanicalEquipmentGrid';
+import ElectricalEquipmentGrid from '@/components/ElectricalEquipmentGrid';
 import EquipmentDetailsModal from '@/components/EquipmentDetailsModal';
 import StatusLegend from '@/components/StatusLegend';
 import IssuesSummary from '@/components/IssuesSummary';
@@ -98,7 +99,7 @@ const Dashboard: React.FC = () => {
                 onClick={handleViewIssuesSummary}
                 variant="outline"
                 size="sm"
-                className="bg-equipment-mismatch hover:bg-equipment-mismatch/80 text-white border-equipment-mismatch"
+                className="bg-equipment-impaired hover:bg-equipment-impaired/80 text-white border-equipment-impaired"
               >
                 <FileText className="w-4 h-4 mr-2" />
                 View Issues Summary
@@ -124,10 +125,19 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Equipment Grid */}
+        {/* Mechanical Equipment Grid */}
         <div className="space-y-4">
-          <div className="text-lg font-semibold text-foreground">Equipment Status Grid</div>
-          <EquipmentGrid 
+          <div className="text-lg font-semibold text-foreground">Mechanical Equipment Status</div>
+          <MechanicalEquipmentGrid 
+            equipment={equipment} 
+            onEquipmentClick={handleEquipmentClick}
+          />
+        </div>
+
+        {/* Electrical Equipment Grid */}
+        <div className="space-y-4">
+          <div className="text-lg font-semibold text-foreground">Electrical Equipment Status</div>
+          <ElectricalEquipmentGrid 
             equipment={equipment} 
             onEquipmentClick={handleEquipmentClick}
           />

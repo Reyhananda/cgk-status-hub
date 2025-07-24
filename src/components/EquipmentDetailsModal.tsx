@@ -48,7 +48,6 @@ const EquipmentDetailsModal: React.FC<EquipmentDetailsModalProps> = ({
       'Run': 'bg-equipment-run text-white',
       'Standby': 'bg-equipment-standby text-white',
       'Impaired': 'bg-equipment-impaired text-white',
-      'Mismatch': 'bg-equipment-mismatch text-white',
       'No Data': 'bg-equipment-no-data text-gray-300',
     };
 
@@ -64,18 +63,10 @@ const EquipmentDetailsModal: React.FC<EquipmentDetailsModalProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-md mx-auto bg-card border border-border">
-        <DialogHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+        <DialogHeader>
           <DialogTitle className="text-lg font-semibold text-foreground">
             Equipment Details
           </DialogTitle>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onClose}
-            className="h-6 w-6 p-0 hover:bg-muted"
-          >
-            <X className="h-4 w-4" />
-          </Button>
         </DialogHeader>
 
         <div className="space-y-4">
@@ -145,7 +136,7 @@ const EquipmentDetailsModal: React.FC<EquipmentDetailsModalProps> = ({
               <Button
                 onClick={handleAddComment}
                 disabled={!ticketLink.trim() || !comment.trim()}
-                className="w-full bg-equipment-mismatch hover:bg-equipment-mismatch/80 text-white font-medium"
+                className="w-full bg-equipment-impaired hover:bg-equipment-impaired/80 text-white font-medium"
               >
                 Add
               </Button>

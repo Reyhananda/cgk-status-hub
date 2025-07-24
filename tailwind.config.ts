@@ -57,7 +57,6 @@ export default {
 				'equipment-run': 'hsl(var(--equipment-run))',
 				'equipment-standby': 'hsl(var(--equipment-standby))',
 				'equipment-impaired': 'hsl(var(--equipment-impaired))',
-				'equipment-mismatch': 'hsl(var(--equipment-mismatch))',
 				'equipment-no-data': 'hsl(var(--equipment-no-data))',
 				'grid-border': 'hsl(var(--grid-border))',
 				'site-header': 'hsl(var(--site-header))',

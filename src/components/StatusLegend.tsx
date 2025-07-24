@@ -11,7 +11,6 @@ const StatusLegend: React.FC = () => {
     { status: 'Run', color: 'bg-equipment-run', label: 'Run' },
     { status: 'Standby', color: 'bg-equipment-standby', label: 'Standby' },
     { status: 'Impaired', color: 'bg-equipment-impaired', label: 'Impaired' },
-    { status: 'Mismatch', color: 'bg-equipment-mismatch', label: 'Mismatch' },
     { status: 'No Data', color: 'bg-equipment-no-data', label: 'No Data' },
   ];
 
