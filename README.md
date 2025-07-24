@@ -47,3 +47,5 @@ Deploy using your preferred platform (Vercel, Netlify, etc) or your own server.
 ## Can I connect a custom domain?
 
 Yes, you can! Configure your DNS and deployment platform accordingly.
+
+testingg
