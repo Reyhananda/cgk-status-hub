@@ -84,13 +84,13 @@ const Dashboard: React.FC = () => {
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
-        <div className="bg-dashboard-header rounded-lg p-6">
+        <div className="bg-gradient-to-r from-[#0f172a] via-[#1e293b] to-[#3b82f6] rounded-lg p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-foreground mb-2">
+              <h1 className="text-2xl font-bold text-white mb-2">
                 CGK Equipment Readiness Dashboard
               </h1>
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm text-blue-100">
                 Real-time monitoring of equipment status across CGK sites
               </div>
             </div>
@@ -127,7 +127,7 @@ const Dashboard: React.FC = () => {
 
         {/* Mechanical Equipment Grid */}
         <div className="space-y-4">
-          <div className="text-lg font-semibold text-foreground">Mechanical Equipment Status</div>
+          <div className="text-lg font-semibold text-foreground text-center">Mechanical Equipment Status</div>
           <MechanicalEquipmentGrid 
             equipment={equipment} 
             onEquipmentClick={handleEquipmentClick}
@@ -136,7 +136,7 @@ const Dashboard: React.FC = () => {
 
         {/* Electrical Equipment Grid */}
         <div className="space-y-4">
-          <div className="text-lg font-semibold text-foreground">Electrical Equipment Status</div>
+          <div className="text-lg font-semibold text-foreground text-center">Electrical Equipment Status</div>
           <ElectricalEquipmentGrid 
             equipment={equipment} 
             onEquipmentClick={handleEquipmentClick}
@@ -144,7 +144,8 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Issues Summary */}
-        <div id="issues-summary" className="scroll-mt-6">
+        <div id="issues-summary" className="scroll-mt-6 space-y-4">
+          <div className="text-lg font-semibold text-foreground text-center">Issues Summary</div> 
           <IssuesSummary 
             equipment={equipment}
             onEquipmentClick={handleEquipmentClick}

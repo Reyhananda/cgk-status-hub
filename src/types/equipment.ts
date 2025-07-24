@@ -6,7 +6,7 @@ export type EquipmentStatus = 'Run' | 'Standby' | 'Impaired' | 'No Data';
 
 export type HOAStatus = 'Hand' | 'Off' | 'Auto' | 'N/A';
 
-export type RunningStatus = 'Running' | 'Standby' | 'Off' | 'N/A';
+export type RunningStatus = 'Running' | 'Off' | 'N/A';
 
 export interface Equipment {
   id: string;

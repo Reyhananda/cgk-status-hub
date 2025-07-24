@@ -18,6 +18,7 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { formatEquipmentId } from '@/lib/equipmentId';
 
 interface EquipmentDetailsModalProps {
   equipment: Equipment | null;
@@ -43,14 +44,23 @@ const EquipmentDetailsModal: React.FC<EquipmentDetailsModalProps> = ({
     }
   };
 
-  const getStatusBadge = (status: Equipment['status']) => {
+  // Helper to get display status (same as EquipmentCard)
+  const getDisplayStatus = (equipment: Equipment): string => {
+    if (equipment.hoaStatus === 'N/A' || equipment.runningStatus === 'N/A') return 'No Data';
+    if (equipment.hoaStatus === 'Auto' && equipment.runningStatus === 'Running') return 'Run';
+    if (equipment.hoaStatus === 'Auto' && equipment.runningStatus === 'Off') return 'Standby';
+    if (equipment.hoaStatus === 'Off' && equipment.runningStatus === 'Off') return 'Impaired';
+    if (equipment.hoaStatus === 'Hand' && equipment.runningStatus === 'Off') return 'Impaired';
+    return equipment.status;
+  };
+
+  const getStatusBadge = (status: string) => {
     const variants = {
       'Run': 'bg-equipment-run text-white',
       'Standby': 'bg-equipment-standby text-white',
       'Impaired': 'bg-equipment-impaired text-white',
       'No Data': 'bg-equipment-no-data text-gray-300',
     };
-
     return (
       <Badge className={cn('text-xs font-medium', variants[status])}>
         {status}
@@ -75,13 +85,13 @@ const EquipmentDetailsModal: React.FC<EquipmentDetailsModalProps> = ({
             <div>
               <Label className="text-xs text-muted-foreground">Equipment ID:</Label>
               <div className="font-medium text-foreground">
-                {equipment.site}-{equipment.type.replace(/[^A-Z]/g, '')}{equipment.number}
+                {formatEquipmentId(equipment)}
               </div>
             </div>
             <div>
               <Label className="text-xs text-muted-foreground">Status:</Label>
               <div className="mt-1">
-                {getStatusBadge(equipment.status)}
+                {getStatusBadge(getDisplayStatus(equipment))}
               </div>
             </div>
           </div>

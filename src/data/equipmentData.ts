@@ -3,14 +3,15 @@
  * Based on the reference images provided
  */
 
-import { Equipment, EquipmentType, SiteCode, MechanicalEquipmentType, ElectricalEquipmentType } from '@/types/equipment';
+import { Equipment, EquipmentType, SiteCode, MechanicalEquipmentType, ElectricalEquipmentType, HOAStatus, RunningStatus } from '@/types/equipment';
+import { formatEquipmentId } from '@/lib/equipmentId';
 
 // Mechanical Equipment configuration per site and type
 export const mechanicalEquipmentConfig: Record<SiteCode, Record<MechanicalEquipmentType, string[]>> = {
   'CGK60': {
     'AHU/DAHU': ['01', '02', '03', '04', '05', '06', '07', '08', '09'],
     'CRAHU': ['01', '02', '03', '04', '05', '06'],
-    'CHILLER': [],
+    'CHILLER': ['01', '02', '03', '04'],
     'CHILLER WATER PUMP': ['01', '02', '03', '04'],
     'CONDENSER WATER PUMP': [],
     'COOLING TOWER': []
@@ -18,7 +19,7 @@ export const mechanicalEquipmentConfig: Record<SiteCode, Record<MechanicalEquipm
   'CGK61': {
     'AHU/DAHU': ['01', '02', '03', '04', '05', '06', '07', '08', '09'],
     'CRAHU': ['01', '02', '03', '04', '05', '06'],
-    'CHILLER': [],
+    'CHILLER': ['01', '02', '03', '04'],
     'CHILLER WATER PUMP': ['01', '02', '03', '04'],
     'CONDENSER WATER PUMP': [],
     'COOLING TOWER': []
@@ -26,7 +27,7 @@ export const mechanicalEquipmentConfig: Record<SiteCode, Record<MechanicalEquipm
   'CGK62': {
     'AHU/DAHU': ['01', '02', '03', '04', '05', '06', '07', '08', '09'],
     'CRAHU': ['01', '02', '03', '04', '05', '06'],
-    'CHILLER': [],
+    'CHILLER': ['01', '02', '03', '04'],
     'CHILLER WATER PUMP': ['01', '02', '03', '04'],
     'CONDENSER WATER PUMP': [],
     'COOLING TOWER': []
@@ -34,26 +35,26 @@ export const mechanicalEquipmentConfig: Record<SiteCode, Record<MechanicalEquipm
   'CGK63': {
     'AHU/DAHU': ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28'],
     'CRAHU': [],
-    'CHILLER': ['CH-1.1-01', 'CH-1.1-02', 'CH-1.1-03', 'CH-1.1-04'],
-    'CHILLER WATER PUMP': ['CHWP-1.1-01', 'CHWP-1.1-02', 'CHWP-1.1-03', 'CHWP-1.1-04'],
-    'CONDENSER WATER PUMP': ['CWP-1.1-01', 'CWP-1.1-02', 'CWP-1.1-03', 'CWP-1.1-04'],
-    'COOLING TOWER': ['CT-1.1-01', 'CT-1.1-02', 'CT-1.1-03', 'CT-1.1-04']
+    'CHILLER': ['01', '02', '03', '04'],
+    'CHILLER WATER PUMP': ['01', '02', '03', '04'],
+    'CONDENSER WATER PUMP': ['01', '02', '03', '04'],
+    'COOLING TOWER': ['01', '02', '03', '04'],
   },
   'CGK64': {
     'AHU/DAHU': ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28'],
     'CRAHU': [],
-    'CHILLER': ['CH-1.1-01', 'CH-1.1-02', 'CH-1.1-03', 'CH-1.1-04'],
-    'CHILLER WATER PUMP': ['CHWP-1.1-01', 'CHWP-1.1-02', 'CHWP-1.1-03', 'CHWP-1.1-04'],
-    'CONDENSER WATER PUMP': ['CWP-1.1-01', 'CWP-1.1-02', 'CWP-1.1-03', 'CWP-1.1-04'],
-    'COOLING TOWER': ['CT-1.1-01', 'CT-1.1-02', 'CT-1.1-03', 'CT-1.1-04']
+    'CHILLER': ['01', '02', '03', '04'],
+    'CHILLER WATER PUMP': ['01', '02', '03', '04'],
+    'CONDENSER WATER PUMP': ['01', '02', '03', '04'],
+    'COOLING TOWER': ['01', '02', '03', '04'],
   },
   'CGK65': {
     'AHU/DAHU': ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28'],
     'CRAHU': [],
-    'CHILLER': ['CH-1.1-01', 'CH-1.1-02', 'CH-1.1-03', 'CH-1.1-04'],
-    'CHILLER WATER PUMP': ['CHWP-1.1-01', 'CHWP-1.1-02', 'CHWP-1.1-03', 'CHWP-1.1-04'],
-    'CONDENSER WATER PUMP': ['CWP-1.1-01', 'CWP-1.1-02', 'CWP-1.1-03', 'CWP-1.1-04'],
-    'COOLING TOWER': ['CT-1.1-01', 'CT-1.1-02', 'CT-1.1-03', 'CT-1.1-04']
+    'CHILLER': ['01', '02', '03', '04'],
+    'CHILLER WATER PUMP': ['01', '02', '03', '04'],
+    'CONDENSER WATER PUMP': ['01', '02', '03', '04'],
+    'COOLING TOWER': ['01', '02', '03', '04'],
   }
 };
 
@@ -96,39 +97,39 @@ export const electricalEquipmentConfig: Record<SiteCode, Record<ElectricalEquipm
     'BACOP': ['A', 'B', 'C']
   },
   'CGK63': {
-    'OSS': ['01', '02', '03'],
-    'RMU': ['1.2A', '1.2B', '2.1A', '2.1B'],
-    'TRAFO': ['1.2A', '1.2B', '2.1A', '2.1B'],
-    'GENERATOR': ['1.2A', '1.2B', '2.1A', '2.1B'],
-    'AMCOP': ['1.2A', '1.2B'],
-    'MEDS': ['1.2A', '1.2B'],
-    'COP': ['1.1A', '1.2A', '2.1A'],
+    'OSS': [],
+    'RMU': ['1.2C', '1.1C', 'HS', '1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
+    'TRAFO': ['1.2C', '1.1C', 'HS', '1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
+    'GENERATOR': ['1.2C', '1.1C', 'HS', '1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
+    'AMCOP': ['1.2C', '1.1C', 'HS', '1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
+    'MEDS': ['1.2C', '1.1C', 'HS', '1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
+    'COP': ['1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
     'DLB': ['1.2C', '1.1C'],
-    'UPS': ['1.2A', '1.2B'],
+    'UPS': ['HS', '1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
     'BACOP': ['1.1A', '1.1B', '1.2A', '1.2B']
   },
   'CGK64': {
-    'OSS': ['01', '02', '03'],
-    'RMU': ['1.2A', '1.2B'],
-    'TRAFO': ['1.2A', '1.2B'],
-    'GENERATOR': ['1.2A', '1.2B'],
-    'AMCOP': ['1.2A', '1.2B'],
-    'MEDS': ['1.2A', '1.2B'],
-    'COP': ['1.1A', '1.2A', '2.1A'],
-    'DLB': [],
-    'UPS': ['1.2A', '1.2B'],
+    'OSS': [],
+    'RMU': ['1.2C', '1.1C', 'HS', '1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
+    'TRAFO': ['1.2C', '1.1C', 'HS', '1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
+    'GENERATOR': ['1.2C', '1.1C', 'HS', '1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
+    'AMCOP': ['1.2C', '1.1C', 'HS', '1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
+    'MEDS': ['1.2C', '1.1C', 'HS', '1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
+    'COP': ['1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
+    'DLB': ['1.2C', '1.1C'],
+    'UPS': ['HS', '1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
     'BACOP': ['1.1A', '1.1B', '1.2A', '1.2B']
   },
   'CGK65': {
-    'OSS': ['01', '02', '03'],
-    'RMU': ['1.2A', '1.2B'],
-    'TRAFO': ['1.2A', '1.2B'],
-    'GENERATOR': ['1.2A', '1.2B'],
-    'AMCOP': ['1.2A', '1.2B'],
-    'MEDS': ['1.2A', '1.2B'],
-    'COP': ['1.1A', '1.2A', '2.1A'],
-    'DLB': ['1.2C'],
-    'UPS': ['1.2A', '1.2B'],
+    'OSS': [],
+    'RMU': ['1.2C', '1.1C', 'HS', '1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
+    'TRAFO': ['1.2C', '1.1C', 'HS', '1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
+    'GENERATOR': ['1.2C', '1.1C', 'HS', '1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
+    'AMCOP': ['1.2C', '1.1C', 'HS', '1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
+    'MEDS': ['1.2C', '1.1C', 'HS', '1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
+    'COP': ['1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
+    'DLB': ['1.2C', '1.1C'],
+    'UPS': ['HS', '1.1A', '1.1B', '1.2A', '1.2B', '2.1A', '2.1B', '1.1MA'],
     'BACOP': ['1.1A', '1.1B', '1.2A', '1.2B']
   }
 };
@@ -138,7 +139,17 @@ export const generateEquipmentData = (): Equipment[] => {
   const equipment: Equipment[] = [];
   const statuses = ['Run', 'Standby', 'Impaired', 'No Data'] as const;
   const hoaStatuses = ['Hand', 'Off', 'Auto', 'N/A'] as const;
-  const runningStatuses = ['Running', 'Standby', 'Off', 'N/A'] as const;
+  const runningStatuses = ['Running', 'Off', 'N/A'] as const;
+
+  // When randomizing HOA and Running Status, prevent HOA Off & Running Running
+  const validHoaRunningCombinations: { hoa: HOAStatus, running: RunningStatus }[] = [
+    { hoa: 'Auto', running: 'Running' },
+    { hoa: 'Auto', running: 'Off' },
+    { hoa: 'Hand', running: 'Off' },
+    { hoa: 'Hand', running: 'Running' },
+    { hoa: 'Off', running: 'Off' },
+    { hoa: 'N/A', running: 'N/A' },
+  ];
 
   // Generate Mechanical Equipment
   Object.entries(mechanicalEquipmentConfig).forEach(([site, types]) => {
@@ -152,7 +163,10 @@ export const generateEquipmentData = (): Equipment[] => {
         else if (Math.random() < 0.7) status = 'Run';
         else if (Math.random() < 0.9) status = 'Standby';
 
-        const equipmentId = `${site}-${type.replace(/[^A-Z]/g, '')}-${number}`;
+        const equipmentId = formatEquipmentId({ site: site as SiteCode, type, number });
+        
+        // Replace random HOA/Running assignment with valid combinations
+        const combo = validHoaRunningCombinations[Math.floor(Math.random() * validHoaRunningCombinations.length)];
         
         equipment.push({
           id: equipmentId,
@@ -160,8 +174,8 @@ export const generateEquipmentData = (): Equipment[] => {
           site: site as SiteCode,
           type: type as EquipmentType,
           status,
-          hoaStatus: hoaStatuses[Math.floor(Math.random() * hoaStatuses.length)],
-          runningStatus: runningStatuses[Math.floor(Math.random() * runningStatuses.length)],
+          hoaStatus: combo.hoa,
+          runningStatus: combo.running,
           latestChange: Math.random() > 0.5 ? 'N/A' : '2024-01-15 10:30:00',
           latestUpdate: '7/25/2025, 1:54:48 AM',
           comments: status === 'Impaired' ? 'Equipment maintenance required' : undefined
@@ -182,7 +196,7 @@ export const generateEquipmentData = (): Equipment[] => {
         else if (Math.random() < 0.7) status = 'Run';
         else if (Math.random() < 0.9) status = 'Standby';
 
-        const equipmentId = `${site}-${type.replace(/[^A-Z]/g, '')}-${number}`;
+        const equipmentId = formatEquipmentId({ site: site as SiteCode, type, number });
         
         equipment.push({
           id: equipmentId,

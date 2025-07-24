@@ -52,20 +52,85 @@ const MechanicalEquipmentGrid: React.FC<MechanicalEquipmentGridProps> = ({ equip
       return 'grid-cols-7'; // For larger grids like AHU/DAHU
     };
 
+    // Special split for AHU & DAHU in CGK63, CGK64, CGK65
+    if (type === 'AHU/DAHU' && ['CGK63', 'CGK64', 'CGK65'].includes(site)) {
+      // Split numbers into 3 groups: 01-10, 11-20, 21-28
+      const group1 = configNumbers.filter(n => parseInt(n, 10) >= 1 && parseInt(n, 10) <= 10);
+      const group2 = configNumbers.filter(n => parseInt(n, 10) >= 11 && parseInt(n, 10) <= 20);
+      const group3 = configNumbers.filter(n => parseInt(n, 10) >= 21 && parseInt(n, 10) <= 28);
+      return (
+        <div className="flex flex-col gap-1">
+          <div className="flex flex-wrap gap-1 justify-center pb-1 border-b border-dashed border-gray-300">
+            {group1.map(number => {
+              const equipmentItem = siteEquipment.find(eq => eq.number === number);
+              if (equipmentItem) {
+                return (
+                  <div className="equipment-card-btn" key={equipmentItem.id}>
+                    <EquipmentCard
+                      key={equipmentItem.id}
+                      equipment={equipmentItem}
+                      onClick={onEquipmentClick}
+                    />
+                  </div>
+                );
+              }
+              return null;
+            })}
+          </div>
+          <div className="flex flex-wrap gap-1 justify-center py-1 border-b border-dashed border-gray-300">
+            {group2.map(number => {
+              const equipmentItem = siteEquipment.find(eq => eq.number === number);
+              if (equipmentItem) {
+                return (
+                  <div className="equipment-card-btn" key={equipmentItem.id}>
+                    <EquipmentCard
+                      key={equipmentItem.id}
+                      equipment={equipmentItem}
+                      onClick={onEquipmentClick}
+                    />
+                  </div>
+                );
+              }
+              return null;
+            })}
+          </div>
+          <div className="flex flex-wrap gap-1 justify-center pt-1">
+            {group3.map(number => {
+              const equipmentItem = siteEquipment.find(eq => eq.number === number);
+              if (equipmentItem) {
+                return (
+                  <div className="equipment-card-btn" key={equipmentItem.id}>
+                    <EquipmentCard
+                      key={equipmentItem.id}
+                      equipment={equipmentItem}
+                      onClick={onEquipmentClick}
+                    />
+                  </div>
+                );
+              }
+              return null;
+            })}
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className={cn(
-        'grid gap-1 p-2',
+        'equipment-grid-cell grid gap-1 p-2',
         getGridClass(configNumbers.length)
       )}>
         {configNumbers.map((number) => {
           const equipmentItem = siteEquipment.find(eq => eq.number === number);
           if (equipmentItem) {
             return (
-              <EquipmentCard
-                key={equipmentItem.id}
-                equipment={equipmentItem}
-                onClick={onEquipmentClick}
-              />
+              <div className="equipment-card-btn">
+                <EquipmentCard
+                  key={equipmentItem.id}
+                  equipment={equipmentItem}
+                  onClick={onEquipmentClick}
+                />
+              </div>
             );
           }
           return null;
@@ -77,13 +142,13 @@ const MechanicalEquipmentGrid: React.FC<MechanicalEquipmentGridProps> = ({ equip
   return (
     <div className="bg-card border border-border rounded-lg overflow-hidden">
       {/* Header Row */}
-      <div className="grid grid-cols-7 bg-dashboard-header">
+      <div className="grid grid-cols-7 bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-300 shadow-sm">
         <div className="p-3 border-r border-grid-border">
-          <div className="font-medium text-sm text-foreground">Equipment Type</div>
+          <div className="font-bold text-base text-white tracking-wide drop-shadow">Equipment Type</div>
         </div>
         {sites.map((site) => (
           <div key={site} className="p-3 border-r border-grid-border last:border-r-0">
-            <div className="bg-site-header text-center py-2 px-3 rounded text-sm font-medium text-foreground">
+            <div className="bg-white/70 text-center py-2 px-3 rounded text-base font-bold text-gray-900 shadow-md border border-gray-300">
               {site}
             </div>
           </div>
@@ -93,14 +158,14 @@ const MechanicalEquipmentGrid: React.FC<MechanicalEquipmentGridProps> = ({ equip
       {/* Equipment Rows */}
       {equipmentTypes.map((type, index) => (
         <div key={type} className={cn(
-          'grid grid-cols-7 border-t border-grid-border',
-          index % 2 === 0 ? 'bg-card' : 'bg-muted/30'
+          'grid grid-cols-7 border-t border-grid-border mechanical-section',
+          index % 2 === 0 ? '' : 'bg-muted/30'
         )}>
           <div className="p-3 border-r border-grid-border flex items-center">
-            <div className="font-medium text-sm text-foreground">{type}</div>
+            <div className="font-medium text-sm">{type === 'AHU/DAHU' ? 'AHU & DAHU' : type}</div>
           </div>
           {sites.map((site) => (
-            <div key={`${site}-${type}`} className="border-r border-grid-border last:border-r-0 min-h-[60px]">
+            <div key={`${site}-${type}`} className="border-r border-grid-border last:border-r-0 min-h-[60px] flex items-center justify-center">
               {renderEquipmentCell(site, type)}
             </div>
           ))}

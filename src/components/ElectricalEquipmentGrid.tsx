@@ -51,23 +51,27 @@ const ElectricalEquipmentGrid: React.FC<ElectricalEquipmentGridProps> = ({ equip
       if (count <= 6) return 'grid-cols-3';
       if (count <= 9) return 'grid-cols-3';
       if (count <= 12) return 'grid-cols-4';
-      return 'grid-cols-4';
+      if (count <= 16) return 'grid-cols-4';
+      if (count <= 20) return 'grid-cols-5';
+      return 'grid-cols-7';
     };
 
     return (
       <div className={cn(
-        'grid gap-1 p-2',
+        'equipment-grid-cell grid gap-2 p-2 place-items-center',
         getGridClass(configNumbers.length)
       )}>
         {configNumbers.map((number) => {
           const equipmentItem = siteEquipment.find(eq => eq.number === number);
           if (equipmentItem) {
             return (
-              <EquipmentCard
-                key={equipmentItem.id}
-                equipment={equipmentItem}
-                onClick={onEquipmentClick}
-              />
+              <div className="flex justify-center items-center equipment-card-btn">
+                <EquipmentCard
+                  key={equipmentItem.id}
+                  equipment={equipmentItem}
+                  onClick={onEquipmentClick}
+                />
+              </div>
             );
           }
           return null;
@@ -79,13 +83,13 @@ const ElectricalEquipmentGrid: React.FC<ElectricalEquipmentGridProps> = ({ equip
   return (
     <div className="bg-card border border-border rounded-lg overflow-hidden">
       {/* Header Row */}
-      <div className="grid grid-cols-7 bg-dashboard-header">
+      <div className="grid grid-cols-7 bg-gradient-to-r from-[#2563eb] via-sky-400 to-cyan-300 shadow-sm">
         <div className="p-3 border-r border-grid-border">
-          <div className="font-medium text-sm text-foreground">Equipment Type</div>
+          <div className="font-bold text-base text-white tracking-wide drop-shadow">Equipment Type</div>
         </div>
         {sites.map((site) => (
           <div key={site} className="p-3 border-r border-grid-border last:border-r-0">
-            <div className="bg-site-header text-center py-2 px-3 rounded text-sm font-medium text-foreground">
+            <div className="bg-white/70 text-center py-2 px-3 rounded text-base font-bold text-blue-900 shadow-md border border-blue-200">
               {site}
             </div>
           </div>
@@ -102,7 +106,7 @@ const ElectricalEquipmentGrid: React.FC<ElectricalEquipmentGridProps> = ({ equip
             <div className="font-medium text-sm text-foreground">{type}</div>
           </div>
           {sites.map((site) => (
-            <div key={`${site}-${type}`} className="border-r border-grid-border last:border-r-0 min-h-[60px]">
+            <div key={`${site}-${type}`} className="border-r border-grid-border last:border-r-0 min-h-[60px] flex items-center justify-center">
               {renderEquipmentCell(site, type)}
             </div>
           ))}
