@@ -1,6 +1,6 @@
 /**
  * Status Legend Component
- * Shows color coding legend for equipment status
+ * Shows color coding legend for equipment status  
  */
 
 import React from 'react';

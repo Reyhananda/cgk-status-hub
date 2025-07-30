@@ -80,7 +80,7 @@ const EquipmentDetailsModal: React.FC<EquipmentDetailsModalProps> = ({
         </DialogHeader>
 
         <div className="space-y-4">
-          {/* Equipment Information */}
+          {/* Equipment Information   */}
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
               <Label className="text-xs text-muted-foreground">Equipment ID:</Label>
